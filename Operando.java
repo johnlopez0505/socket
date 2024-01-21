@@ -18,7 +18,7 @@ public class Operando {
             ipServidor = InetAddress.getByName(hostServidor);
             socketCliente = new DatagramSocket();
             byte[] bufferEscritura = new byte[MAXBYTES];
-            String lineaAMandar = "hola como estas";
+            String lineaAMandar = "Hola, soy john y quiero saludarle";
             bufferEscritura = lineaAMandar.getBytes();
             DatagramPacket pE = new DatagramPacket(bufferEscritura, bufferEscritura.length,ipServidor, numPuertoServidor);
             socketCliente.send(pE);

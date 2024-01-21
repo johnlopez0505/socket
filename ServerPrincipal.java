@@ -31,7 +31,7 @@ public class ServerPrincipal {
             ipCliente = pL.getAddress();
             int puertoOrigenCliente = pL.getPort();
             byte [] bufferEscritura = new byte[MAXBYTES];
-            bufferEscritura = "OK".getBytes();
+            bufferEscritura = "Muchas gracias, yo también le saludo a usted".getBytes();
             DatagramPacket pE = new DatagramPacket(bufferEscritura,bufferEscritura.length, ipCliente, puertoOrigenCliente);
 
             socketServidor.send(pE);
