@@ -1,43 +1,32 @@
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.io.*;
+import java.net.*;
+
 
 public class Operando {
-    static InetAddress ipServidor;
-    static String hostServidor = "localhost";
-    static int numPuertoServidor = 4500;
-    static final int MAXBYTES = 600;
-    
-    public static void main(String[] args)  {
-        DatagramSocket socketCliente;
-        try {
-            ipServidor = InetAddress.getByName(hostServidor);
-            socketCliente = new DatagramSocket();
-            byte[] bufferEscritura = new byte[MAXBYTES];
-            String lineaAMandar = "Hola, soy john y quiero saludarle";
-            bufferEscritura = lineaAMandar.getBytes();
-            DatagramPacket pE = new DatagramPacket(bufferEscritura, bufferEscritura.length,ipServidor, numPuertoServidor);
-            socketCliente.send(pE);
+    public static void main(String[] args) {
+        // Configurar el cliente
+        BufferedReader in;
+        PrintWriter out;
+        try (Socket socket = new Socket("127.0.0.1", 12345)) {
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
 
-            byte[] bufferLectura = new byte[MAXBYTES];
-            DatagramPacket pL = new DatagramPacket(bufferLectura, MAXBYTES);
-            System.out.println("Esperando respuesta del servidor");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String operacion;
 
-            socketCliente.receive(pL);
-            String lineaRecibida = new String (pL.getData(), 0, pL.getLength(), "UTF-8");
-            System.out.println(lineaRecibida);
+            do {
+                System.out.print("Ingrese la operación (o 'fin' para salir): ");
+                operacion = reader.readLine();
+                // Enviar la operación al servidor
+                out.println(operacion);
+                // Recibir y mostrar la respuesta del servidor
+                String respuesta = in.readLine();
+                System.out.println("Respuesta del servidor: " + respuesta);
+            } while (!(operacion.equalsIgnoreCase("fin")));
 
-
-        } catch (UnknownHostException e) {
-           System.out.println(e.getMessage());
-        } catch (SocketException e) {
-            System.out.println(e.getMessage());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } 
+            throw new RuntimeException(e);
+        }
     }
 }
