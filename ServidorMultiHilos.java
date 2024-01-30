@@ -3,9 +3,9 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ServidorMultiHilos extends Thread{
-   private Socket socketClientes;
-   private String nombre = "cliente"; 
-   private int id;
+    private Socket socketClientes;
+    private String nombre = "cliente"; 
+    private int id;
 
     public ServidorMultiHilos(Socket socketClientes,int id) {
         this.socketClientes = socketClientes;

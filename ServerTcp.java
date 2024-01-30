@@ -30,17 +30,7 @@ public class ServerTcp {
             }
 
         } catch (NoSuchElementException e){
-            System.out.println("El Cliente ha cerrado su conexión....");
-
-            //COMO EJERCICIO......, ANALIZAR EL SIGUIENTE CÓDIGO.........
-            if (socketComunicacion!=null && socketComunicacion.isConnected())
-                try{
-                     socketComunicacion.close();
-                }catch (IOException ex){
-                    System.out.println("Error en flujo de E/S al cerrar el Socket una vez desconectado con cliente");
-                    ex.printStackTrace();
-                }
-            
+            System.out.println("El Cliente ha cerrado su conexión....");            
         }
         catch (IOException e){
             System.out.println("Error en flujo de E/S");
