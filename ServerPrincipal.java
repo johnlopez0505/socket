@@ -8,7 +8,7 @@ import java.util.Date;
 public class ServerPrincipal {
     public static void main(String[] args) {
         // Configurar el servidor
-        try (ServerSocket serverSocket = new ServerSocket(12345)) {
+        try (ServerSocket serverSocket = new ServerSocket(50000)) {
             System.out.println("Servidor esperando conexiones...");
 
             while (true) {
@@ -43,10 +43,11 @@ public class ServerPrincipal {
     private static String realizarOperacion(String operacion) {
         try {
             // Utilizar expresiones regulares para separar operandos y operador
-            String[] partes = operacion.trim().split("");
-            double operando1 = Double.parseDouble(partes[0]);
-            String operador = partes[1];
-            double operando2 = Double.parseDouble(partes[2]);
+            String[] partes = operacion.trim().split("([+\\-/*])");
+            double operando1 = Double.parseDouble(partes[0].trim());
+            String[] operadores = operacion.trim().split("[0-9]+");
+            String operador = operadores[1].trim();
+            double operando2 = Double.parseDouble(partes[1].trim());
 
             switch (operador) {
                 case "+":
@@ -59,7 +60,7 @@ public class ServerPrincipal {
                     if (operando2 != 0) {
                         return "resultado:" + (operando1 / operando2);
                     } else {
-                        return "resultado:err";
+                        return "resultado: no se puede dividir por cero";
                     }
                 default:
                     return "resultado:err";

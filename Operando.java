@@ -8,7 +8,7 @@ public class Operando {
         // Configurar el cliente
         BufferedReader in;
         PrintWriter out;
-        try (Socket socket = new Socket("127.0.0.1", 12345)) {
+        try (Socket socket = new Socket("localhost", 50000)) {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
 
