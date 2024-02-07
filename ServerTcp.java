@@ -19,7 +19,7 @@ public class ServerTcp {
             //Creamos el socket del servidor.
             System.out.println("Esperando peticion de conexión del cliente .....");
             socketServidor = new ServerSocket(numPuertoServidor);
-            while(!noConectado) {
+            while(socketServidor.isBound()) {
                 socketComunicacion = socketServidor.accept();  //aceptamos la comunicación con el cliente
                 ipCliente = socketComunicacion.getInetAddress();
                 //String hostCliente = ipCliente.getHostAddress();
